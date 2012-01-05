@@ -1,13 +1,21 @@
-/* Author: 
+/* Author: Michel Gotta
 
 */
 var mainWidth = 0;
 var time = 3.0;
+var plattform;
 
 $(function() {
   if ($('html').hasClass('canvas') && $('html').hasClass('cssanimations')) {
+    
+    if ($.browser.webkit) {
+      plattform = "webkit";
+    } else if($.browser.mozilla) {
+      plattform = "moz";
+    }
+    
     mainWidth = $('#curve-creator').width();
-  
+
     $('#bezier-control-1').draggable({
       containment: '#curve-creator',
       drag: function(event, ui) {
@@ -16,7 +24,7 @@ $(function() {
         draw(o.left+16, o.top+16, e.left+16, e.top+16);
       }
     });
-  
+
     $('#bezier-control-2').draggable({
       containment:'#curve-creator',
       drag: function(event, ui) {
@@ -25,7 +33,7 @@ $(function() {
         draw(o.left+16, o.top+16, e.left+16, e.top+16);
       }
     });
-  
+
     $('#slider').slider({
         value:time,
         min: 1,
@@ -39,12 +47,12 @@ $(function() {
           $('#slider-wrapper .time').html(time);
         }
     });
-  
+
     $('button').click(function() {
       $('.car').toggleClass('right');
     });
     var miniCanvas = document.getElementById("track-linear-canvas");
-  
+
     if (miniCanvas.getContext) {
       var ctx = miniCanvas.getContext('2d');
       ctx.strokeStyle = "#8AAAB2";
@@ -55,8 +63,7 @@ $(function() {
       ctx.stroke();
       ctx.closePath();
     }
-  
-  
+
     draw(mainWidth*0.75,mainWidth*0.75,mainWidth*0.25,mainWidth*0.25);
   } else {
     $('#container').html("");
@@ -64,22 +71,22 @@ $(function() {
   }
 });
 function draw(x1,y1,x2,y2) {
-  var canvas = document.getElementById("canvas");  
+  var canvas = document.getElementById("canvas");
   var miniCanvas = document.getElementById("track-bezier-canvas");
-  
+
   if (canvas.getContext) {
     var ctx = canvas.getContext("2d");  
-    canvas.width = canvas.width;    
+    canvas.width = canvas.width;
     ctx.strokeStyle = "#666";
     ctx.lineWidth   = 6;
-    
-    ctx.beginPath();  
+
+    ctx.beginPath();
     ctx.moveTo(0,mainWidth);
     ctx.lineTo(x1,y1);
     ctx.stroke();
-    ctx.closePath();  
-    
-    ctx.beginPath();  
+    ctx.closePath();
+
+    ctx.beginPath();
     ctx.moveTo(mainWidth,0);
     ctx.lineTo(x2,y2);
     ctx.stroke();
@@ -92,9 +99,6 @@ function draw(x1,y1,x2,y2) {
     ctx.bezierCurveTo(x1,y1,x2,y2,mainWidth,0);
     ctx.stroke();
     ctx.closePath();
-    
-
-    
   }
   if (miniCanvas.getContext) {
     var mctx = miniCanvas.getContext("2d");
@@ -107,17 +111,17 @@ function draw(x1,y1,x2,y2) {
     mctx.stroke();
     mctx.closePath();
   }
-  
+
   x1 = parseInt(x1/mainWidth*100)/100;
   y1 = 1-parseInt(y1/mainWidth*100)/100;
   x2 = parseInt(x2/mainWidth*100)/100;
   y2 = 1-parseInt(y2/mainWidth*100)/100;
-  
+
   y1 = parseInt(y1*100)/100;
   y2 = parseInt(y2*100)/100;
-  
-  $('.car').attr('style', '-webkit-transition: all '+time+'s cubic-bezier(' + x1 + ',' + y1 +','+ x2 + ',' + y2 + ')');
-  $('.car-linear').attr('style', '-webkit-transition: all '+time+'s linear');
-  
-  $('#output').html('-webkit-transition: all '+time+'s cubic-bezier(' + x1 + ', ' + y1 +', '+ x2 + ', ' + y2 + ')');
+
+  $('.car').attr('style', '-'+plattform+'-transition: all '+time+'s cubic-bezier(' + x1 + ',' + y1 +','+ x2 + ',' + y2 + ')');
+  $('.car-linear').attr('style', '-'+plattform+'-transition: all '+time+'s linear');
+
+  $('#output').html('-'+plattform+'-transition: all '+time+'s cubic-bezier(' + x1 + ', ' + y1 +', '+ x2 + ', ' + y2 + ')');
 }
