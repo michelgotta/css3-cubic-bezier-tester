@@ -18,20 +18,14 @@ $(function() {
 
     $('#bezier-control-1').draggable({
       containment: '#curve-creator',
-      drag: function(event, ui) {
-        o = $('#bezier-control-1').position();
-        e = $('#bezier-control-2').position();
-        draw(o.left+16, o.top+16, e.left+16, e.top+16);
-      }
+      drag: getPositionsAndDraw,
+      stop: getPositionsAndDraw
     });
 
     $('#bezier-control-2').draggable({
       containment:'#curve-creator',
-      drag: function(event, ui) {
-        e = $('#bezier-control-2').position();
-        o = $('#bezier-control-1').position();
-        draw(o.left+16, o.top+16, e.left+16, e.top+16);
-      }
+      drag: getPositionsAndDraw,
+      stop: getPositionsAndDraw
     });
 
     $('#slider').slider({
@@ -41,10 +35,10 @@ $(function() {
         step: 0.1,
         slide: function(event, ui) {
           time = ui.value;
-          e = $('#bezier-control-2').position();
-          o = $('#bezier-control-1').position();
-          draw(o.left+16, o.top+16, e.left+16, e.top+16);
-          $('#slider-wrapper .time').html(time);
+          
+          getPositionsAndDraw();
+          
+          $('#slider-wrapper .time').html(time.toFixed(1));
         }
     });
 
@@ -70,6 +64,11 @@ $(function() {
     $('#warning').show();
   }
 });
+function getPositionsAndDraw() {
+  e = $('#bezier-control-2').position();
+  o = $('#bezier-control-1').position();
+  draw(o.left+16, o.top+16, e.left+16, e.top+16);
+}
 function draw(x1,y1,x2,y2) {
   var canvas = document.getElementById("canvas");
   var miniCanvas = document.getElementById("track-bezier-canvas");
@@ -112,16 +111,13 @@ function draw(x1,y1,x2,y2) {
     mctx.closePath();
   }
 
-  x1 = parseInt(x1/mainWidth*100)/100;
-  y1 = 1-parseInt(y1/mainWidth*100)/100;
-  x2 = parseInt(x2/mainWidth*100)/100;
-  y2 = 1-parseInt(y2/mainWidth*100)/100;
-
-  y1 = parseInt(y1*100)/100;
-  y2 = parseInt(y2*100)/100;
-
-  $('.car').attr('style', '-'+plattform+'-transition: all '+time+'s cubic-bezier(' + x1 + ',' + y1 +','+ x2 + ',' + y2 + ')');
+  x1 = x1/mainWidth;
+  y1 = 1-y1/mainWidth;
+  x2 = x2/mainWidth;
+  y2 = 1-y2/mainWidth;
+  
+  $('.car').attr('style', '-'+plattform+'-transition: all '+time.toFixed(1)+'s cubic-bezier(' + x1 + ',' + y1 +','+ x2 + ',' + y2 + ')');
   $('.car-linear').attr('style', '-'+plattform+'-transition: all '+time+'s linear');
 
-  $('#output').html('-'+plattform+'-transition: all '+time+'s cubic-bezier(' + x1 + ', ' + y1 +', '+ x2 + ', ' + y2 + ')');
+  $('#output').html('-'+plattform+'-transition: all '+time.toFixed(1)+'s cubic-bezier(' + x1.toFixed(2) + ', ' + y1.toFixed(2) +', '+ x2.toFixed(2) + ', ' + y2.toFixed(2) + ')');
 }
