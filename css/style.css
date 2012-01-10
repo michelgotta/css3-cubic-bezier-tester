@@ -238,6 +238,9 @@ footer {
  text-align:center;
  padding:48px 0;
 }
+footer p {
+  padding-bottom:12px;
+}
 #warning {
  display:none;
  font-size:20px;
