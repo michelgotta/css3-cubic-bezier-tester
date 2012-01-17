@@ -1,71 +1,79 @@
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>CSS3 Bezier Curve Tester</title>
-  <meta name="description" content="Simple CSS bezier curve animation tester.">
-  <meta name="author" content="Michel Gotta">
+	<title>CSS3 Bezier Curve Tester</title>
+	<meta name="description" content="Simple CSS bezier curve animation tester.">
+	<meta name="keywords" content="CSS3, Animations, Bezier curve, tester, HTML5, jQuery">
+	<meta name="author" content="Michel Gotta">
 
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.16.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.16.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
-  <script src="js/libs/modernizr-2.0.6.min.js"></script>
+	<script src="js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 <body>
-  <div id="container">
-    <header>
-      <h1>CSS3 Bezier Curve Tester</h1>
-    </header>
-    <div id="main" role="main">
-      <code id="output"></code>
-      <div id="curve-creator">
-        <canvas id="canvas" width="300" height="300"></canvas>
-        <div class="bezier-control" id="bezier-control-1"><div class="center"></div></div>
-        <div class="bezier-control" id="bezier-control-2"><div class="center"></div></div>
-      </div>
-      <div id="settings">
-        <div id="slider-wrapper">
-            <h2>Time: <span class="time">3.0</span><span style="color:#8AAAB2">s</span></h2>
-          <div id="slider"></div>
-        </div>
-        <div id="track-bezier">
-          <h3>Bezier</h3>
-          <canvas id="track-bezier-canvas" width="40" height="40"></canvas>
-          <div class="track">
-            <div class="car"></div>
-          </div>
-        </div>
-        <div id="track-linear">
-          <h3>Linear</h3>
-          <canvas id="track-linear-canvas" width="40" height="40"></canvas>
-          <div class="track">
-            <div class="car car-linear"></div>
-          </div>
-        </div>
-        <button id="run">Start Animation</button>
-      </div>
-    </div>
-    <footer>
-      <p>Made by <a href="http://www.michelgotta.de" target="_blank">Michel Gotta</a> at <a href="http://www.4wdmedia.de" target="_blank">4wd media</a></p>
-      <p><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
-    </footer>
-  </div>
-  <div id="warning">
-    Sorry...you need Google Chrome, Safari or Firefox 5 to view this example&hellip;<br/>
-    <a href="http://www.normansblog.de/demos/browser-support-checklist-css3/" target="_blank">&hellip; or check this browser support checklist.</a>
-  </div>
-  <a href="http://github.com/michelgotta/css3-cubic-bezier-tester"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub"></a>
-  <script src="js/libs/jquery-1.6.2.min.js"></script>
-  <script src="js/libs/jquery-ui-1.8.16.custom.min.js"></script>
-  <script defer src="js/plugins.js"></script>
-  <script defer src="js/script.js"></script>  
+	<div id="container">
+		<header>
+			<h1>CSS3 Bezier Curve Tester</h1>
+		</header>
+		<div id="main" role="main" class="clearfix">
+			<code id="output"></code>
+			<div id="curve-creator">
+				<canvas id="canvas" width="300" height="300"></canvas>
+				<div class="bezier-control" id="bezier-control-1"><div class="center"></div></div>
+				<div class="bezier-control" id="bezier-control-2"><div class="center"></div></div>
+			</div>
+			<div id="settings">
+				<div id="slider-wrapper">
+						<h2>Time: <span class="time">3.0</span><span style="color:#8AAAB2">s</span></h2>
+					<div id="slider"></div>
+				</div>
+				<div id="animation-tracks">
+					<div id="track-bezier">
+						<h3>Bezier</h3>
+						<canvas id="track-bezier-canvas" width="40" height="40"></canvas>
+						<div class="track">
+							<div class="car"></div>
+						</div>
+					</div>
+					<div id="track-linear">
+						<h3>Linear</h3>
+						<canvas id="track-linear-canvas" width="40" height="40"></canvas>
+						<div class="track">
+							<div class="car car-linear"></div>
+						</div>
+					</div>
+					<select name="animation-type" id="animation-type-selector" size="1">
+						<option value="1">Position</option>
+						<option value="2">Size</option>
+						<option value="3">Opacity</option>
+					</select>
+				</div>
+				<button id="run">Start Animation</button>
+			</div>
+		</div>
+		<footer>
+			<p>Made by <a href="http://www.michelgotta.de" title="MICHEL GOTTA / DIPL MEDIA SYSTEM DESIGNER" target="_blank">Michel Gotta</a> at <a href="http://www.4wdmedia.de" title="4wd media, Darmstadt - Webdesign | Content-Management | Software-Entwicklung" target="_blank">4wd media</a></p>
+			<p><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
+		</footer>
+	</div>
+	<div id="warning">
+		Sorry...you need Google Chrome, Safari or Firefox 5 to view this example&hellip;<br/>
+		<a href="http://www.normansblog.de/demos/browser-support-checklist-css3/" target="_blank">&hellip; or check this browser support checklist.</a>
+	</div>
+	<a href="http://github.com/michelgotta/css3-cubic-bezier-tester"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub"></a>
+	<script src="js/libs/jquery-1.6.2.min.js"></script>
+	<script src="js/libs/jquery-ui-1.8.16.custom.min.js"></script>
+	<script defer src="js/plugins.js"></script>
+	<script defer src="js/script.js"></script>	
 </body>
 </html>
