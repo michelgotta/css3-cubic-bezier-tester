@@ -1,11 +1,12 @@
 /* Author: Michel Gotta
 
 */
-var mainWidth = 0;
-var time = 3.0;
-var plattform;
 
 $(function() {
+	var mainWidth = 0;
+	var time = 3.0;
+	var plattform;
+
 	if ($('html').hasClass('canvas') && $('html').hasClass('cssanimations')) {
 
 		if ($.browser.webkit) {
@@ -85,61 +86,63 @@ $(function() {
 		$('#container').html("");
 		$('#warning').show();
 	}
+
+	function getPositionsAndDraw() {
+		e = $('#bezier-control-2').position();
+		o = $('#bezier-control-1').position();
+		draw(o.left+16, o.top+16, e.left+16, e.top+16);
+	}
+
+	function draw(x1,y1,x2,y2) {
+		var canvas = document.getElementById("canvas");
+		var miniCanvas = document.getElementById("track-bezier-canvas");
+
+		if (canvas.getContext) {
+			var ctx = canvas.getContext("2d");
+			canvas.width = canvas.width;
+			ctx.strokeStyle = "#666";
+			ctx.lineWidth	 = 6;
+
+			ctx.beginPath();
+			ctx.moveTo(0,mainWidth);
+			ctx.lineTo(x1,y1);
+			ctx.stroke();
+			ctx.closePath();
+
+			ctx.beginPath();
+			ctx.moveTo(mainWidth,0);
+			ctx.lineTo(x2,y2);
+			ctx.stroke();
+			ctx.closePath();
+
+			ctx.strokeStyle = "#ed5e11";
+			ctx.lineWidth	 = 12;
+			ctx.beginPath();
+			ctx.moveTo(0,mainWidth);
+			ctx.bezierCurveTo(x1,y1,x2,y2,mainWidth,0);
+			ctx.stroke();
+			ctx.closePath();
+		}
+		if (miniCanvas.getContext) {
+			var mctx = miniCanvas.getContext("2d");
+			miniCanvas.width = miniCanvas.width;
+			mctx.strokeStyle = '#ed5e11';
+			mctx.lineWidth	 = 2;
+			mctx.beginPath();
+			mctx.moveTo(0,40);
+			mctx.bezierCurveTo(x1*40/mainWidth,y1*40/mainWidth,x2*40/mainWidth,y2*40/mainWidth,40,0);
+			mctx.stroke();
+			mctx.closePath();
+		}
+
+		x1 = x1/mainWidth;
+		y1 = 1-y1/mainWidth;
+		x2 = x2/mainWidth;
+		y2 = 1-y2/mainWidth;
+
+		$('.car').attr('style', '-'+plattform+'-transition: all '+time.toFixed(1)+'s cubic-bezier(' + x1 + ',' + y1 +','+ x2 + ',' + y2 + ')');
+		$('.car-linear').attr('style', '-'+plattform+'-transition: all '+time+'s linear');
+
+		$('#output').html('-'+plattform+'-transition: all '+time.toFixed(1)+'s cubic-bezier(' + x1.toFixed(2) + ', ' + y1.toFixed(2) +', '+ x2.toFixed(2) + ', ' + y2.toFixed(2) + ')');
+	}
 });
-function getPositionsAndDraw() {
-	e = $('#bezier-control-2').position();
-	o = $('#bezier-control-1').position();
-	draw(o.left+16, o.top+16, e.left+16, e.top+16);
-}
-function draw(x1,y1,x2,y2) {
-	var canvas = document.getElementById("canvas");
-	var miniCanvas = document.getElementById("track-bezier-canvas");
-
-	if (canvas.getContext) {
-		var ctx = canvas.getContext("2d");
-		canvas.width = canvas.width;
-		ctx.strokeStyle = "#666";
-		ctx.lineWidth	 = 6;
-
-		ctx.beginPath();
-		ctx.moveTo(0,mainWidth);
-		ctx.lineTo(x1,y1);
-		ctx.stroke();
-		ctx.closePath();
-
-		ctx.beginPath();
-		ctx.moveTo(mainWidth,0);
-		ctx.lineTo(x2,y2);
-		ctx.stroke();
-		ctx.closePath();
-
-		ctx.strokeStyle = "#ed5e11";
-		ctx.lineWidth	 = 12;
-		ctx.beginPath();
-		ctx.moveTo(0,mainWidth);
-		ctx.bezierCurveTo(x1,y1,x2,y2,mainWidth,0);
-		ctx.stroke();
-		ctx.closePath();
-	}
-	if (miniCanvas.getContext) {
-		var mctx = miniCanvas.getContext("2d");
-		miniCanvas.width = miniCanvas.width;
-		mctx.strokeStyle = '#ed5e11';
-		mctx.lineWidth	 = 2;
-		mctx.beginPath();
-		mctx.moveTo(0,40);
-		mctx.bezierCurveTo(x1*40/mainWidth,y1*40/mainWidth,x2*40/mainWidth,y2*40/mainWidth,40,0);
-		mctx.stroke();
-		mctx.closePath();
-	}
-
-	x1 = x1/mainWidth;
-	y1 = 1-y1/mainWidth;
-	x2 = x2/mainWidth;
-	y2 = 1-y2/mainWidth;
-
-	$('.car').attr('style', '-'+plattform+'-transition: all '+time.toFixed(1)+'s cubic-bezier(' + x1 + ',' + y1 +','+ x2 + ',' + y2 + ')');
-	$('.car-linear').attr('style', '-'+plattform+'-transition: all '+time+'s linear');
-
-	$('#output').html('-'+plattform+'-transition: all '+time.toFixed(1)+'s cubic-bezier(' + x1.toFixed(2) + ', ' + y1.toFixed(2) +', '+ x2.toFixed(2) + ', ' + y2.toFixed(2) + ')');
-}
