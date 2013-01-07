@@ -10,6 +10,7 @@ jQuery(document).ready(function($, undefined) {
 	var plattform;
 	var canvas = document.getElementById("canvas");
 	var miniCanvas = document.getElementById("track-bezier-canvas");
+	var miniCanvasLinear = document.getElementById("track-linear-canvas");
 	var ctx;
 	var mctx;
 	var $car = $('.car');
@@ -72,17 +73,15 @@ jQuery(document).ready(function($, undefined) {
 			}
 		});
 
-		var miniCanvas = document.getElementById("track-linear-canvas");
-
-		if (miniCanvas.getContext) {
-			var ctx = miniCanvas.getContext('2d');
-			ctx.strokeStyle = "#8AAAB2";
-			ctx.lineWidth	 = 2;
-			ctx.beginPath();
-			ctx.moveTo(0,40);
-			ctx.lineTo(40,0);
-			ctx.stroke();
-			ctx.closePath();
+		if (miniCanvasLinear.getContext) {
+			var ctxl = miniCanvasLinear.getContext('2d');
+			ctxl.strokeStyle = "#8AAAB2";
+			ctxl.lineWidth	 = 2;
+			ctxl.beginPath();
+			ctxl.moveTo(0,40);
+			ctxl.lineTo(40,0);
+			ctxl.stroke();
+			ctxl.closePath();
 		}
 
 		draw(mainWidth*0.75,mainWidth*0.75,mainWidth*0.25,mainWidth*0.25);
