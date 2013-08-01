@@ -36,9 +36,9 @@ jQuery(document).ready(function($, undefined) {
 		// Time slider
 		$('#slider').slider({
 				value: time,
-				min: 1,
+				min: .1,
 				max: 10,
-				step: 0.1,
+				step: .1,
 				slide: function(event, ui) {
 					time = ui.value;
 					getPositionsAndDraw();
