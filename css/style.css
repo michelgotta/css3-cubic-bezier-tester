@@ -517,6 +517,8 @@ footer {
 }
 
 footer p {
+  width: 680px;
+  margin: 1em auto;
   padding-bottom: 12px;
   font-size: 17px;
   font-weight: 300;
