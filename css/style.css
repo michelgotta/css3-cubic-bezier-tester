@@ -518,7 +518,8 @@ footer {
 
 footer p {
   padding-bottom: 12px;
-  font-size: 15px;
+  font-size: 17px;
+  font-weight: 300;
 }
 
 footer a {
