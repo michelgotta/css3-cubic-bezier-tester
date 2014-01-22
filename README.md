@@ -10,3 +10,6 @@ It's based on HTML5, CSS3 and some JavaScript and should be run in any modern br
 **DEMO: http://www.css3beziercurve.net**
 
 ![Screenshot](https://raw.github.com/michelgotta/css3-cubic-bezier-tester/master/img/screenshot.png)
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/michelgotta/css3-cubic-bezier-tester/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
