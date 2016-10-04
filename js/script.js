@@ -89,7 +89,8 @@ jQuery(document).ready(function($, undefined) {
 	function getPositionsAndDraw() {
 		var e = $('#bezier-control-2').position();
 		var o = $('#bezier-control-1').position();
-		draw(o.left + 16, o.top + 16, e.left + 16, e.top + 16);
+		var d = 16;
+		draw(o.left + d, o.top + d, e.left + d, e.top + d);
 	}
 
 	function drawLine(x, y, start) {
@@ -139,15 +140,16 @@ jQuery(document).ready(function($, undefined) {
 			miniCanvas.width = miniCanvas.width; // refresh hack
 
 			// Get bezier control coordinates for small canvas (x * width of canvas / width of big canvas)
+			var smallWidth = 40;
 			var pos = {
-				x1: x1 * 40 / mainWidth,
-				y1: y1 * 40 / mainWidth,
-				x2: x2 * 40 / mainWidth,
-				y2: y2 * 40 / mainWidth
+				x1: x1 * smallWidth / mainWidth,
+				y1: y1 * smallWidth / mainWidth,
+				x2: x2 * smallWidth / mainWidth,
+				y2: y2 * smallWidth / mainWidth
 			};
 
 			// Draw on small canvas
-			drawBezier(mctx, pos, 2, 40);
+			drawBezier(mctx, pos, 2, smallWidth);
 		}
 
 		// Make values CSS ready...
